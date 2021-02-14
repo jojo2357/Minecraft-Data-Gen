@@ -1,0 +1,8 @@
+.idea/
+.gradle/
+build/
+**/*.iml
+**/*.zip
+generated/
+gradle/
+src/main/resources/ilja_assets/

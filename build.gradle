@@ -1,0 +1,19 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'application'
+
+dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
+    compile group: 'org.json', name: 'json', version: '20201115'
+    implementation 'com.google.code.gson:gson:2.8.6'
+}
+
+mainClassName = 'com.github.jojo2357.Main'
+
+sourceCompatibility = JavaVersion.VERSION_15
