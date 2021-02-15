@@ -17,7 +17,7 @@ public class ShapedRecipe {
 
     private JsonArray createRecipe(ShapedRecipeBuilder builder) {
         JsonArray out = new JsonArray();
-
+        //for (int i = 0; i )
         return out;
     }
 

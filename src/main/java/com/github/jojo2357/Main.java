@@ -2,6 +2,7 @@ package com.github.jojo2357;
 
 import com.github.jojo2357.blocks.BlockModel;
 import com.github.jojo2357.blocks.VaryingBlockModel;
+import com.github.jojo2357.items.ItemModel;
 import com.github.jojo2357.loottable.LootTable;
 
 import java.io.File;
@@ -17,7 +18,7 @@ public class Main {
     public static final String modid = "mosaic_blocks";
 
     public static void main(String[] args) throws IOException {
-        doLootTableStuff();
+        //doLootTableStuff();
         /*Scanner kb = new Scanner(System.in);
         //String texture_name = "loltest";
         //BlockModel.BlockModelBuilder.newInstance().withParent("minecraft:block/cube_all").allTexts(modid + ":blocks/" + texture_name).build();
@@ -34,13 +35,14 @@ public class Main {
         BlockModel.BlockModelTemplate template = getTemplate(kb);
         createBlockModel(kb, template);
         kb.close();*/
-        /*ArrayList<File> imagesToRun = getRunFiles();
+        ArrayList<File> imagesToRun = getRunFiles();
         for (File file : imagesToRun){
-            FileWriter fw = new FileWriter("./generated/" + file.getName().split("\\.")[0] + ".txt");
+            FileWriter fw = new FileWriter("./generated/" + file.getName().split("\\.")[0] + ".json");
             //fw.write(VaryingBlockModel.VaryingBlockModelBuilder.newInstance().addMapping("facing", new ArrayList<>(Arrays.asList("north", "south", "east", "west"))).blockFor(file.getName().substring(file.getName().indexOf('_')).split("\\.")[0]).addMapping("color", new ArrayList<>(Arrays.asList("red", "white", "yellow", "purple", "pink", "orange", "magenta", "lime", "light_gray", "light_blue", "green", "gray", "cyan", "brown", "blue", "black"))).build());
-            fw.write(BlockModel.BlockModelBuilder.newInstance().withParent("block/cube_all").setTexture("all", modid + ":blocks/" + file.getName().split("\\.")[0]).build());
+            //fw.write(BlockModel.BlockModelBuilder.newInstance().withParent("block/cube_all").setTexture("all", modid + ":blocks/" + file.getName().split("\\.")[0]).build());
+            fw.write(ItemModel.ItemModelBuilder.newInstance().withParent(modid + ":" + "block/" + file.getName().split("\\.")[0]).build());
             fw.close();
-        }*/
+        }
     }
 
     private static void doLootTableStuff() throws IOException {
@@ -50,12 +52,14 @@ public class Main {
             defaultPool.addCondition("minecraft:survives_explosion");
             defaultPool.addEntry(modid + ":" + fyle.getName().split("\\.")[0]);
             defaultPool.setRolls(1);
-            FileWriter fw = new FileWriter("./generated/" + fyle.getName().split("\\.")[0] + ".txt");
+            FileWriter fw = new FileWriter("./generated/" + fyle.getName().split("\\.")[0] + ".json");
             //fw.write(VaryingBlockModel.VaryingBlockModelBuilder.newInstance().addMapping("facing", new ArrayList<>(Arrays.asList("north", "south", "east", "west"))).blockFor(file.getName().substring(file.getName().indexOf('_')).split("\\.")[0]).addMapping("color", new ArrayList<>(Arrays.asList("red", "white", "yellow", "purple", "pink", "orange", "magenta", "lime", "light_gray", "light_blue", "green", "gray", "cyan", "brown", "blue", "black"))).build());
             fw.write(bilder.addPool(defaultPool).setType("minecraft:block").build());
             fw.close();
         }
     }
+
+
 
     private static void createBlockModel(Scanner kb, BlockModel.BlockModelTemplate template){
         HashMap<String, String> selections = new HashMap<>();
@@ -73,6 +77,7 @@ public class Main {
                         System.out.print("Name a texture for " + key + ": ");
                         String response = getResponse(kb);
                         selections.put(key, response);
+                        break;
                     }
                 System.out.println("Please choose a face to change, press enter to generate");
                 for (String kee : template.textureKeys)
@@ -112,7 +117,7 @@ public class Main {
         }
     }
 
-    private static ArrayList<File> getRunFiles(){
+    private static ArrayList<File> getRunFiles() {
         File root = new File("src/main/resources/ilja_assets/block/block");
         System.out.println(root.isDirectory());
         System.out.println(root.getAbsolutePath());
