@@ -60,6 +60,18 @@ public class LootTable {
         public String build() {
             return new LootTable(this).json;
         }
+
+        public String build(String entryReplacement){
+            return new LootTable(this.copy(entryReplacement)).json;
+        }
+
+        public LootTableBuilder copy(String replacement){
+            LootTableBuilder out = new LootTableBuilder();
+            for (Pool pool : pools)
+                out.addPool(pool.copy(replacement));
+            out.type = type;
+            return out;
+        }
     }
 
     public static class Pool{
@@ -77,6 +89,36 @@ public class LootTable {
         
         public void addCondition(String condition){
             conditions.add(condition);
+        }
+
+        @Override
+        public String toString(){
+            StringBuilder out = new StringBuilder();
+            out.append("rolls = ").append(rolls).append('\n');
+            if (entries.size() > 0)
+                out.append("Entries:\n");
+            for (String entry : entries)
+                if (!entry.equals(""))
+                    out.append("  ").append(entry).append('\n');
+                else
+                    out.append("  ").append("itself").append('\n');
+            if (conditions.size() > 0)
+                out.append("Conditions:\n");
+            for (String condition : conditions)
+                out.append("  ").append(condition).append('\n');
+            return out.toString();
+        }
+
+        public Pool copy(String replace) {
+            Pool out = new Pool();
+            for (String entry : entries)
+                if (!entry.equals(""))
+                    out.addEntry(entry);
+                else
+                    out.addEntry(replace);
+            out.conditions = conditions;
+            out.rolls = rolls;
+            return out;
         }
     }
 }
