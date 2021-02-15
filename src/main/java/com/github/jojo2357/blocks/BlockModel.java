@@ -118,6 +118,8 @@ public class BlockModel {
                 new BlockModelTemplate("block/four_turtle_eggs", "all")
         ));
 
+        public static int longestName;
+
         public String parent_id;
         public ArrayList<String> textureKeys;
 
@@ -128,6 +130,13 @@ public class BlockModel {
         public BlockModelTemplate(String parent, String...textures){
             parent_id = parent;
             textureKeys = new ArrayList<>(Arrays.asList(textures));
+            //refreshStats();
+        }
+
+        public static void refreshStats(){
+            longestName = 0;
+            for (BlockModelTemplate temp : allTemplates)
+                longestName = Math.max(longestName, temp.parent_id.length());
         }
 
         public BlockModelTemplate addTexture(String key) {
